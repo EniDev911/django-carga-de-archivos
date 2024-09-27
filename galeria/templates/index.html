@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Django upload images example</title>
+</head>
+<body>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Guardar</button>
+    </form>
+    {% for image in images %}
+        <figure style="display: inline-block;">
+            <img src="{{ image.image.url }}" alt="{{ image.caption }}" height="200" width="200">
+            <figcaption>{{ image.caption }}</figcaption><br />
+            <a href="{% url 'eliminar_imagen' image.id %}">Eliminar</a>
+        </figure>
+    {% endfor %}
+</body>
+</html>
